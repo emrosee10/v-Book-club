@@ -60,6 +60,27 @@ document.getElementById('book-form').addEventListener('submit', function (event)
     document.querySelectorAll('input[name="rating"]').forEach(input => input.checked = false);
 });
 
+// Add rating system (stars)
+function createStarRating() {
+    const starRating = document.getElementById('star-rating');
+    for (let i = 1; i <= 5; i++) {
+        const star = document.createElement('input');
+        star.type = 'radio';
+        star.name = 'rating';
+        star.id = 'star' + i;
+        star.value = i;
+
+        const label = document.createElement('label');
+        label.setAttribute('for', 'star' + i);
+        label.innerHTML = '★'; // This is the star symbol
+
+        starRating.appendChild(star);
+        starRating.appendChild(label);
+    }
+}
+
+createStarRating(); // Creates star rating system dynamically
+
 // Search function
 function searchBooks() {
     const searchTerm = document.getElementById('search-bar').value.toLowerCase();
@@ -85,24 +106,6 @@ function sortBooks() {
 
     renderBooks(sortedBooks);
 }
-
-// Add rating system (stars)
-function createStarRating() {
-    const starRating = document.getElementById('star-rating');
-    for (let i = 1; i <= 5; i++) {
-        const star = document.createElement('input');
-        star.type = 'radio';
-        star.name = 'rating';
-        star.id = 'star' + i;
-        star.value = i;
-        const label = document.createElement('label');
-        label.setAttribute('for', 'star' + i);
-        starRating.appendChild(star);
-        starRating.appendChild(label);
-    }
-}
-
-createStarRating();
 
 // Call loadBooks function to show saved books when the page loads
 loadBooksFromLocalStorage();
