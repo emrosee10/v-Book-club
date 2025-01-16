@@ -35,8 +35,13 @@ document.getElementById('book-form').addEventListener('submit', function (event)
 
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
-    const rating = document.querySelector('input[name="rating"]:checked').value;
+    const rating = document.querySelector('input[name="rating"]:checked') ? document.querySelector('input[name="rating"]:checked').value : 0;
     const review = document.getElementById('review').value;
+
+    if (!title || !author || !review || !rating) {
+        alert('Please fill in all fields.');
+        return;
+    }
 
     const newBook = {
         title: title,
@@ -49,7 +54,10 @@ document.getElementById('book-form').addEventListener('submit', function (event)
     saveBooksToLocalStorage();
     renderBooks();
 
+    // Reset form
     document.getElementById('book-form').reset();
+    // Reset the star rating
+    document.querySelectorAll('input[name="rating"]').forEach(input => input.checked = false);
 });
 
 // Search function
@@ -95,4 +103,6 @@ function createStarRating() {
 }
 
 createStarRating();
+
+// Call loadBooks function to show saved books when the page loads
 loadBooksFromLocalStorage();
